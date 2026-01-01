@@ -12,9 +12,10 @@ import Contact from './views/Contact';
 const App: React.FC = () => {
   return (
     <Router>
-      <div className="min-h-screen flex flex-col selection:bg-emerald-500/30">
+      <div className="min-h-screen flex flex-col selection:bg-emerald-500/30 bg-slate-950">
         <Navigation />
-        <main className="flex-grow">
+        {/* Added significant top padding (pt-32) to ensure no page content is covered by the nav */}
+        <main className="flex-grow pt-32 lg:pt-40">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />

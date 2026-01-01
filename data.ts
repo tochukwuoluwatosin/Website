@@ -3,7 +3,7 @@ import { Publication, Project, Education } from './types';
 
 export const RESEARCHER_NAME = "Tochukwu Oluwatosin Maduka";
 
-export const HERO_BIO = "I am a doctoral researcher specializing in the interactions between environmental pollutants and biological systems, with a particular focus on allergen–pollutant–microplastic interactions, phytochemistry, and molecular simulations. My research integrates experimental spectroscopy, surface chemistry, and multiscale computational modeling to understand toxicity mechanisms and develop nature-inspired mitigation strategies.";
+export const HERO_BIO = "My research decodes the invisible boundaries where environmental pollutants meet biological systems. By bridging the gap between experimental surface chemistry and multiscale molecular dynamics, I develop next-generation solutions for computational toxicology and nature-inspired allergen mitigation.";
 
 export const METRICS = {
   researchGate: "295.4",
