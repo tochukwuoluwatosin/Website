@@ -1,30 +1,42 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 const Navigation: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const links = [
-    { name: 'Identity', path: '/' },
+    { name: 'Home', path: '/' },
+    { name: 'About', path: '/about' },
     { name: 'Research', path: '/projects' },
     { name: 'Publications', path: '/publications' },
-    { name: 'About', path: '/about' },
     { name: 'Contact', path: '/contact' },
   ];
 
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-[100] w-[calc(100%-2rem)] max-w-5xl">
-      <div className="bg-slate-950/80 backdrop-blur-2xl border border-white/10 rounded-[2rem] px-8 py-3.5 shadow-2xl">
+    <nav className={`fixed top-6 left-1/2 -translate-x-1/2 z-[100] w-[calc(100%-2rem)] max-w-5xl transition-all duration-300 ${scrolled ? 'top-4' : 'top-8'}`}>
+      <div className="glass rounded-full px-8 py-3.5 shadow-2xl shadow-black/50 border border-white/10">
         <div className="flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 rounded-lg bg-emerald-500 flex items-center justify-center text-slate-950 font-black text-sm">T</div>
-            <span className="text-lg font-black text-white tracking-tighter hover:text-emerald-400 transition-colors">
-              MADUKA
-            </span>
+          <Link to="/" className="flex items-center gap-3 group">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center text-slate-950 font-black text-sm shadow-lg shadow-emerald-500/20 group-hover:scale-105 transition-transform">T</div>
+            <div className="flex flex-col">
+              <span className="text-sm font-black text-white tracking-widest uppercase leading-none">
+                T. O. MADUKA
+              </span>
+              <span className="text-[9px] font-bold text-emerald-400 uppercase tracking-[0.2em] leading-none mt-1">
+                PhD Researcher
+              </span>
+            </div>
           </Link>
 
           <div className="hidden md:flex items-center space-x-1">
@@ -35,7 +47,7 @@ const Navigation: React.FC = () => {
                 className={`px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-all ${
                   isActive(link.path)
                     ? 'text-emerald-400 bg-emerald-500/10 border border-emerald-500/20'
-                    : 'text-slate-400 hover:text-white border border-transparent'
+                    : 'text-slate-400 hover:text-white border border-transparent hover:bg-white/5'
                 }`}
               >
                 {link.name}
@@ -45,13 +57,13 @@ const Navigation: React.FC = () => {
 
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 text-slate-400 hover:text-white"
+            className="md:hidden p-2 text-slate-400 hover:text-white transition-colors"
           >
             <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               {isOpen ? (
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M6 18L18 6M6 6l12 12" />
               ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M4 6h16M12 12h8m-12 6h12" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M4 6h16M4 12h10m-10 6h16" />
               )}
             </svg>
           </button>
@@ -60,7 +72,7 @@ const Navigation: React.FC = () => {
 
       {/* Mobile menu */}
       {isOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 mt-4 bg-slate-950/95 backdrop-blur-3xl border border-white/10 rounded-[2rem] p-6 shadow-2xl animate-in slide-in-from-top-4 duration-300">
+        <div className="md:hidden absolute top-full left-0 right-0 mt-4 glass rounded-[2rem] p-6 shadow-2xl animate-in slide-in-from-top-4 duration-300 border border-white/10">
           <div className="space-y-1">
             {links.map((link) => (
               <Link

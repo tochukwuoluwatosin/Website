@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import Navigation from './components/Navigation';
@@ -12,10 +11,17 @@ import Contact from './views/Contact';
 const App: React.FC = () => {
   return (
     <Router>
-      <div className="min-h-screen flex flex-col selection:bg-emerald-500/30 bg-slate-950">
+      <div className="min-h-screen flex flex-col relative">
+        {/* Abstract Background Elements */}
+        <div className="fixed inset-0 pointer-events-none -z-10">
+          <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-emerald-500/10 blur-[120px] rounded-full animate-blob"></div>
+          <div className="absolute bottom-[10%] right-[-5%] w-[35%] h-[35%] bg-indigo-500/10 blur-[120px] rounded-full animate-blob animation-delay-2000"></div>
+          <div className="absolute top-[40%] left-[20%] w-[25%] h-[25%] bg-blue-500/5 blur-[100px] rounded-full animate-blob animation-delay-4000"></div>
+        </div>
+
         <Navigation />
-        {/* Added significant top padding (pt-32) to ensure no page content is covered by the nav */}
-        <main className="flex-grow pt-32 lg:pt-40">
+        
+        <main className="flex-grow pt-32 lg:pt-44">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
@@ -24,6 +30,7 @@ const App: React.FC = () => {
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </main>
+
         <Footer />
       </div>
     </Router>
